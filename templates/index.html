@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Admission Predictor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-light">
+    
+    <nav class="navbar navbar-expand-lg navbar-dark header-gradient mb-4 p-3 shadow-sm">
+        <div class="container align-items-center">
+            <a class="navbar-brand fw-bold mb-0 h1" href="/">
+                <i class="fas fa-graduation-cap me-2"></i>Job Admission Predictor
+            </a>
+            <span class="text-white-50 d-none d-md-inline">B.Tech Machine Learning Project</span>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            
+            <div class="col-lg-8 col-md-10">
+                <div class="card shadow border-0 rounded-4">
+                    <div class="card-header bg-white text-center pt-4 pb-0 border-0">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-user-graduate fs-3"></i>
+                        </div>
+                        <h3 class="mb-1 fw-bold text-dark">Student Profile</h3>
+                        <p class="text-muted">Enter your academic details to predict job placement and higher education admission probabilities.</p>
+                    </div>
+                    
+                    <div class="card-body p-4 p-md-5 pt-3">
+                        <form action="/predict" method="POST">
+                            <div class="row g-4">
+                                
+                                <div class="col-md-6">
+                                    <label for="age" class="form-label fw-semibold text-secondary"><i class="fas fa-calendar-alt me-1 text-primary"></i> Age</label>
+                                    <input type="number" class="form-control form-control-lg" id="age" name="age" required min="18" max="40" placeholder="e.g. 21">
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="gender" class="form-label fw-semibold text-secondary"><i class="fas fa-venus-mars me-1 text-primary"></i> Gender</label>
+                                    <select class="form-select form-select-lg" id="gender" name="gender" required>
+                                        <option value="" disabled selected>Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="stream" class="form-label fw-semibold text-secondary"><i class="fas fa-book me-1 text-primary"></i> Engineering Stream</label>
+                                    <select class="form-select form-select-lg" id="stream" name="stream" required>
+                                        <option value="" disabled selected>Select Stream</option>
+                                        <option value="Computer Science">Computer Science</option>
+                                        <option value="Information Technology">Information Technology</option>
+                                        <option value="Electronics And Communication">Electronics And Communication</option>
+                                        <option value="Electrical">Electrical</option>
+                                        <option value="Mechanical">Mechanical</option>
+                                        <option value="Civil">Civil</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="skill" class="form-label fw-semibold text-secondary"><i class="fas fa-laptop-code me-1 text-primary"></i> Primary Skill</label>
+                                    <select class="form-select form-select-lg" id="skill" name="skill" required>
+                                        <option value="" disabled selected>Select Skill</option>
+                                        <option value="Python">Python</option>
+                                        <option value="Java">Java</option>
+                                        <option value="Web Development">Web Development</option>
+                                        <option value="Data Science">Data Science</option>
+                                        <option value="None">None</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="internships" class="form-label fw-semibold text-secondary"><i class="fas fa-briefcase me-1 text-primary"></i> Number of Internships</label>
+                                    <input type="number" class="form-control form-control-lg" id="internships" name="internships" required min="0" max="10" placeholder="e.g. 1">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="projects" class="form-label fw-semibold text-secondary"><i class="fas fa-project-diagram me-1 text-primary"></i> Number of Projects</label>
+                                    <input type="number" class="form-control form-control-lg" id="projects" name="projects" required min="0" max="20" placeholder="e.g. 2">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="cgpa" class="form-label fw-semibold text-secondary"><i class="fas fa-star me-1 text-primary"></i> CGPA (Out of 10)</label>
+                                    <input type="number" class="form-control form-control-lg" id="cgpa" name="cgpa" required step="0.01" min="0" max="10" placeholder="e.g. 8.5">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="hostel" class="form-label fw-semibold text-secondary"><i class="fas fa-building me-1 text-primary"></i> Hostel Resident?</label>
+                                    <select class="form-select form-select-lg" id="hostel" name="hostel" required>
+                                        <option value="0" selected>No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="backlogs" class="form-label fw-semibold text-secondary"><i class="fas fa-history me-1 text-primary"></i> History of Backlogs?</label>
+                                    <select class="form-select form-select-lg" id="backlogs" name="backlogs" required>
+                                        <option value="0" selected>No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 mt-5 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5 py-3 shadow-sm fw-bold w-100 rounded-pill btn-predict">
+                                        <i class="fas fa-magic me-2"></i> Predict Results
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- About Project Section -->
+                <div class="card shadow-sm border-0 rounded-4 mt-4 bg-white">
+                    <div class="card-body p-4 text-center">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-info-circle text-primary me-2"></i>About the Project</h5>
+                        <p class="text-muted mb-0 mx-auto" style="max-width: 600px;">
+                            This is a machine learning system designed to predict a student's job placement and higher education admission chances. 
+                            It utilizes historic student academic data (like CGPA, Internships, and Backlogs) to calculate probabilities using trained Scikit-Learn classification models.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer mt-auto py-4 bg-dark text-white-50 text-center">
+        <div class="container">
+            <p class="mb-0 fw-bold text-white"><i class="fas fa-code me-1"></i> Job Admission Predictor</p>
+            <small>Final Year B.Tech Machine Learning Project</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
