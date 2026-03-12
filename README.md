@@ -87,3 +87,6 @@ Job-Admission-Predictor/
    *Capture the bottom section showing the Chart.js bar chart and the dynamic interpretation message.*
 4. **Terminal Running App**  
    *Take a screenshot of the terminal/command prompt showing the Flask server running successfully.*
+   ## 🚀 Live Demo
+
+👉 https://web-production-30dcf.up.railway.app
