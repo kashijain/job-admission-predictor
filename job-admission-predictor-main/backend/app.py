@@ -13,16 +13,24 @@ logger = logging.getLogger(__name__)
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-    
-    # CORS Configuration - Allow frontend URLs
-    # In production, specify exact fronted URLs instead of "*"
-    CORS(app, resources={
-        r"/api/*": {
-            "origins": ["http://localhost:5173", "http://localhost:3000"],
-            "methods": ["GET", "POST", "OPTIONS"],
-            "allow_headers": ["Content-Type", "Authorization"]
-        }
-    })
+
+    allowed_origins = [
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://predictgenius.onrender.com",
+    ]
+
+    CORS(
+        app,
+        resources={
+            r"/api/*": {
+                "origins": allowed_origins,
+                "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+                "allow_headers": ["Content-Type", "Authorization"],
+                "supports_credentials": True,
+            }
+        },
+    )
     
     # Initialize MongoDB Client with error handling
     try:
