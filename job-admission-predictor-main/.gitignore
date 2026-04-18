@@ -1,0 +1,42 @@
+# Backend
+backend/.env
+backend/.env.local
+backend/__pycache__/
+backend/*.pyc
+backend/venv/
+backend/.venv/
+backend/model/
+backend/instance/
+backend/*.db
+backend/.DS_Store
+
+# Frontend
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+frontend/dist/
+frontend/build/
+frontend/.DS_Store
+frontend/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# General
+.DS_Store
+*.log
+.env
+.env.local
