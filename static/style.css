@@ -1,0 +1,61 @@
+/* static/style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+/* Header Gradient */
+.header-gradient {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+}
+
+/* Card Hover Animation */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+}
+
+/* Form inputs active state */
+.form-control:focus, .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.navbar-brand {
+    letter-spacing: 0.5px;
+}
+
+/* Icon Shape in result cards */
+.icon-shape {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Profile List styling */
+.profile-list .list-group-item {
+    font-size: 0.95rem;
+    padding: 0.75rem 0;
+}
+
+.profile-list .list-group-item:last-child {
+    border-bottom: none;
+}
+
+.btn-predict {
+    transition: all 0.3s ease;
+}
+
+.btn-predict:hover {
+    transform: scale(1.02);
+}
