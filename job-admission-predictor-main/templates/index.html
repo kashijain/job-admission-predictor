@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career & College Guidance System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+        .hover-primary:hover { border-bottom: 3px solid #0d6efd !important; }
+        .hover-success:hover { border-bottom: 3px solid #198754 !important; }
+        .hover-warning:hover { border-bottom: 3px solid #ffc107 !important; }
+    </style>
+</head>
+<body class="bg-light">
+    
+    <nav class="navbar navbar-expand-lg navbar-dark header-gradient mb-5 p-3 shadow-sm">
+        <div class="container align-items-center">
+            <a class="navbar-brand fw-bold mb-0 h1" href="/">
+                <i class="fas fa-graduation-cap me-2"></i>Job Admission Predictor
+            </a>
+            <span class="text-white-50 d-none d-md-inline">AI Career & College Guidance System</span>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold text-dark mb-3">Welcome to your AI Guidance System</h1>
+            <p class="text-muted fs-5 mx-auto" style="max-width: 700px;">
+                Empowering students with machine learning. Explore your college options, predict your placement chances, and plan your higher education journey.
+            </p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            
+            <!-- B.Tech College Predictor Card -->
+            <div class="col-md-4">
+                <div class="card shadow border-0 rounded-4 h-100 feature-card hover-success">
+                    <div class="card-body p-4 text-center d-flex flex-column">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-circle mb-3 mx-auto" style="width: 70px; height: 70px;">
+                            <i class="fas fa-university fs-2"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">B.Tech College Predictor</h4>
+                        <p class="text-muted mb-4 flex-grow-1">
+                            Discover optimal engineering colleges based on your JEE Main percentile, 10th, and 12th board results.
+                        </p>
+                        <a href="/btech-predictor" class="btn btn-outline-success btn-lg rounded-pill w-100 mt-auto">
+                            Explore Colleges
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Placement Predictor Card -->
+            <div class="col-md-4">
+                <div class="card shadow border-0 rounded-4 h-100 feature-card hover-primary">
+                    <div class="card-body p-4 text-center d-flex flex-column">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-circle mb-3 mx-auto" style="width: 70px; height: 70px;">
+                            <i class="fas fa-briefcase fs-2"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Placement Predictor</h4>
+                        <p class="text-muted mb-4 flex-grow-1">
+                            Predict your campus placement probability and receive tailored career path recommendations.
+                        </p>
+                        <a href="/placement-predictor" class="btn btn-outline-primary btn-lg rounded-pill w-100 mt-auto">
+                            Predict Placement
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- M.Tech Predictor Card -->
+            <div class="col-md-4">
+                <div class="card shadow border-0 rounded-4 h-100 feature-card hover-warning">
+                    <div class="card-body p-4 text-center d-flex flex-column">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-warning bg-opacity-10 text-warning rounded-circle mb-3 mx-auto" style="width: 70px; height: 70px;">
+                            <i class="fas fa-user-graduate fs-2"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">M.Tech Predictor</h4>
+                        <p class="text-muted mb-4 flex-grow-1">
+                            Evaluate your chances for higher education and M.Tech admissions based on your academic profile.
+                        </p>
+                        <a href="/mtech-predictor" class="btn btn-outline-warning text-dark fw-bold btn-lg rounded-pill w-100 mt-auto">
+                            Plan Higher Studies
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer mt-auto py-4 bg-dark text-white-50 text-center">
+        <div class="container">
+            <p class="mb-0 fw-bold text-white"><i class="fas fa-code me-1"></i> Job Admission Predictor</p>
+            <small>Final Year B.Tech Machine Learning Project</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

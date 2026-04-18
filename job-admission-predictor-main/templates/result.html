@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result - Job Admission Predictor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark header-gradient mb-4 p-3 shadow-sm">
+        <div class="container align-items-center">
+            <a class="navbar-brand fw-bold mb-0 h1" href="/">
+                <i class="fas fa-graduation-cap me-2"></i>Job Admission Predictor
+            </a>
+            <span class="text-white-50 d-none d-md-inline">B.Tech Machine Learning Project</span>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-dark">Prediction Dashboard</h2>
+            <p class="text-muted">A comprehensive analysis of your academic profile</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left Column: Profile Summary & Insights -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm border-0 rounded-4 mb-4 h-100">
+                    <div class="card-header bg-white border-0 pt-4 pb-2">
+                        <h5 class="fw-bold mb-0"><i class="fas fa-id-card text-primary me-2"></i>Profile Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush profile-list">
+                            {% for key, value in profile.items() %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span class="text-secondary fw-semibold">{{ key }}</span>
+                                <span class="badge bg-light text-dark border">{{ value }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Predictions & Chart -->
+            <div class="col-lg-8">
+                <div class="row g-4 mb-4">
+                    <!-- Placement Card -->
+                    <div class="col-md-6">
+                        <div class="card shadow-sm border-0 rounded-4 h-100">
+                            <div class="card-body p-4 text-center position-relative">
+                                <div class="icon-shape {{ 'bg-success' if placement_result == 'Placed' else 'bg-danger' }} text-white rounded-circle mx-auto mb-3">
+                                    <i class="fas {{ 'fa-check' if placement_result == 'Placed' else 'fa-times' }} fs-4"></i>
+                                </div>
+                                <h5 class="fw-bold text-secondary mb-1">Campus Placement</h5>
+                                <h3 class="fw-bold {{ 'text-success' if placement_result == 'Placed' else 'text-danger' }}">{{ placement_result }}</h3>
+                                
+                                <div class="mt-4 text-start">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="small fw-semibold text-muted">Probability</span>
+                                        <span class="small fw-bold text-dark">{{ placement_probability }}%</span>
+                                    </div>
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar {{ 'bg-success' if placement_result == 'Placed' else 'bg-danger' }}" role="progressbar" style="width: {{ placement_probability }}%" aria-valuenow="{{ placement_probability }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admission Card -->
+                    <div class="col-md-6">
+                        <div class="card shadow-sm border-0 rounded-4 h-100">
+                            <div class="card-body p-4 text-center position-relative">
+                                <div class="icon-shape bg-info text-white rounded-circle mx-auto mb-3">
+                                    <i class="fas fa-university fs-4"></i>
+                                </div>
+                                <h5 class="fw-bold text-secondary mb-1">Higher Education</h5>
+                                <h3 class="fw-bold text-info">Admission Chances</h3>
+                                
+                                <div class="mt-4 text-start">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="small fw-semibold text-muted">Probability</span>
+                                        <span class="small fw-bold text-dark">{{ admission_probability }}%</span>
+                                    </div>
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: {{ admission_probability }}%" aria-valuenow="{{ admission_probability }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart & Interpretation -->
+                <div class="card shadow-sm border-0 rounded-4 mb-4">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 mb-4 mb-md-0">
+                                <canvas id="predictionChart" width="100" height="100"></canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="fw-bold mb-3"><i class="fas fa-lightbulb text-warning me-2"></i>Interpretation</h5>
+                                <p class="text-muted leading-relaxed">
+                                    Based on your academic profile, you have a <strong>{{ placement_probability }}%</strong> chance of securing campus placement.
+                                    {% if placement_result == 'Placed' %}
+                                    <span class="text-success fw-semibold">This indicates a strong profile!</span> Keep preparing for interviews.
+                                    {% else %}
+                                    This suggests some areas need focus.
+                                    {% endif %}
+                                    <br><br>
+                                    Your estimated probability for higher education admission is <strong>{{ admission_probability }}%</strong>. Increasing internship experience and improving CGPA can further enhance both admission and placement chances.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommended Career Paths Section -->
+                <div class="card shadow-sm border-0 rounded-4 mb-4 bg-success bg-opacity-10 border-start border-success border-4">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3 text-dark"><i class="fas fa-briefcase text-success me-2"></i>Recommended Career Paths</h5>
+                        <p class="text-muted small mb-3">Based on your academic profile, skill, and experience, consider these career paths:</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for career in recommended_careers %}
+                            <span class="badge bg-white text-success border border-success px-3 py-2 rounded-pill shadow-sm">
+                                <i class="fas fa-star me-1"></i> {{ career }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations Section -->
+                <div class="card shadow-sm border-0 rounded-4 mb-4 bg-primary bg-opacity-10 border-start border-primary border-4">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3 text-dark"><i class="fas fa-rocket text-primary me-2"></i>Recommended Skills to Improve Career Opportunities</h5>
+                        <p class="text-muted small mb-3">Based on your primary skill (<strong>{{ profile['Primary Skill'] }}</strong>), here are key areas you should focus on:</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for skill in recommended_skills %}
+                            <span class="badge bg-white text-primary border border-primary px-3 py-2 rounded-pill shadow-sm">
+                                <i class="fas fa-check-circle me-1"></i> {{ skill }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <a href="/" class="btn btn-outline-primary px-4 rounded-pill shadow-sm">
+                        <i class="fas fa-arrow-left me-2"></i> Analyze Another Profile
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer mt-auto py-4 bg-dark text-white-50 text-center">
+        <div class="container">
+            <p class="mb-0 fw-bold text-white"><i class="fas fa-code me-1"></i> Job Admission Predictor</p>
+            <small>Final Year B.Tech Machine Learning Project</small>
+        </div>
+    </footer>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Pass variables to JS -->
+    <script>
+        const placementProb = {{ placement_probability }};
+        const admissionProb = {{ admission_probability }};
+    </script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
